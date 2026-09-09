@@ -32,6 +32,7 @@ xl.Visible = False
 xl.DisplayAlerts = False
 
 wb = None
+success = False
 try:
     wb = xl.Workbooks.Open(PATH)
     xl.CalculateFullRebuild()
@@ -198,11 +199,12 @@ try:
     xl.ActiveWindow.Zoom = 85
 
     wb.Save()
+    success = True
     print("Dashboard built.")
 finally:
     if wb is not None:
         try:
-            wb.Close(SaveChanges=True)
+            wb.Close(SaveChanges=success)
         except Exception:
             pass
     xl.Quit()
